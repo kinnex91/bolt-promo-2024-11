@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.betforfun.devforever.ovh/sitemap.xml
+Sitemap: https://www.sportcompetition.fr/sitemap.xml
