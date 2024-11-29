@@ -12,12 +12,7 @@ export default function VideoPlayer() {
 
   useEffect(() => {
     // Check if this is the first visit
-    const hasVisited = localStorage.getItem('hasVisitedBefore');
-    if (!hasVisited) {
-      localStorage.setItem('hasVisitedBefore', 'true');
-      // Don't automatically set isPlaying on mobile
-      setIsPlaying(true);
-    }
+    setIsPlaying(true);
   }, []);
 
   const isMobile = () => {
@@ -30,11 +25,11 @@ export default function VideoPlayer() {
         try {
           videoRef.current.muted = true;
           videoRef.current.playsInline = true;
-          
+
           // Load video first
           await videoRef.current.load();
           setIsVideoLoaded(true);
-          
+
           // Try to play
           const playPromise = videoRef.current.play();
           if (playPromise !== undefined) {
@@ -59,6 +54,14 @@ export default function VideoPlayer() {
       playVideo();
     }
   }, [isPlaying, hasInteracted, isVideoLoaded]);
+
+  useEffect(() => {
+    // Programmatically trigger click on <p> to unmute
+    const tapToUnmuteElement = document.querySelector('.video.tapToUnmute');
+    if (tapToUnmuteElement) {
+      tapToUnmuteElement.click();
+    }
+  }, [isPlaying]);
 
   const handlePlay = () => {
     setHasInteracted(true);
@@ -85,6 +88,21 @@ export default function VideoPlayer() {
     }
   };
 
+  useEffect(() => {
+    if (isPlaying && videoRef.current) {
+      const unmuteAndPlay = async () => {
+        try {
+          videoRef.current.muted = false; // Unmute
+          await videoRef.current.play(); // Play the video
+          setHasInteracted(true); // Set interaction to true
+        } catch (error) {
+          console.error('Failed to play or unmute video:', error);
+        }
+      };
+  
+      unmuteAndPlay();
+    }
+  }, [isPlaying]);
   return (
     <>
       <motion.button
@@ -111,7 +129,7 @@ export default function VideoPlayer() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden"
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={handleClose}
@@ -120,7 +138,7 @@ export default function VideoPlayer() {
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
-              
+
               <div className="relative pt-[56.25%]">
                 <video
                   ref={videoRef}
@@ -134,15 +152,13 @@ export default function VideoPlayer() {
                 >
                   Your browser does not support the video tag.
                 </video>
-                
-                {videoRef.current?.muted && !hasInteracted && (
-                  <div 
+
+                {!hasInteracted && (
+                  <div
                     className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer"
                     onClick={handleVideoClick}
                   >
-                    <p className="text-white text-lg">
-                      {t('video.tapToUnmute')}
-                    </p>
+                  
                   </div>
                 )}
               </div>
