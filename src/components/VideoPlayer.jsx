@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function VideoPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const { t } = useTranslation();
   const videoRef = React.useRef(null);
 
@@ -12,55 +14,75 @@ export default function VideoPlayer() {
     // Check if this is the first visit
     const hasVisited = localStorage.getItem('hasVisitedBefore');
     if (!hasVisited) {
-      // Set the flag for future visits
       localStorage.setItem('hasVisitedBefore', 'true');
-      // Auto-play the video
+      // Don't automatically set isPlaying on mobile
       setIsPlaying(true);
     }
   }, []);
 
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
   useEffect(() => {
-    // When isPlaying changes and video is mounted, try to play
     if (isPlaying && videoRef.current) {
-      // Load the video first
-      videoRef.current.load();
-      
-      // Try to play after a short delay to ensure the video is loaded
-      setTimeout(() => {
-        const playPromise = videoRef.current.play();
-        
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              // Video started playing successfully
-              console.log("Video autoplay started successfully");
-            })
-            .catch(error => {
-              console.log("Autoplay was prevented:", error);
-              // If autoplay fails, we can show a play button or handle it differently
-              videoRef.current.muted = true; // Try muting the video
-              videoRef.current.play().catch(e => console.log("Even muted autoplay failed:", e));
-            });
+      const playVideo = async () => {
+        try {
+          videoRef.current.muted = true;
+          videoRef.current.playsInline = true;
+          
+          // Load video first
+          await videoRef.current.load();
+          setIsVideoLoaded(true);
+          
+          // Try to play
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // If user has interacted, we can unmute
+                if (hasInteracted) {
+                  videoRef.current.muted = false;
+                }
+              })
+              .catch(error => {
+                console.log('Playback failed:', error);
+                // Keep it muted if autoplay fails
+                videoRef.current.muted = true;
+              });
+          }
+        } catch (error) {
+          console.log('Video loading failed:', error);
         }
-      }, 100);
+      };
+
+      playVideo();
     }
-  }, [isPlaying]);
+  }, [isPlaying, hasInteracted, isVideoLoaded]);
 
   const handlePlay = () => {
+    setHasInteracted(true);
     setIsPlaying(true);
   };
 
   const handleClose = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0; // Reset video position
+      videoRef.current.currentTime = 0;
     }
     setIsPlaying(false);
+    setIsVideoLoaded(false);
   };
 
-  // Handle video end
   const handleVideoEnd = () => {
     handleClose();
+  };
+
+  const handleVideoClick = () => {
+    if (videoRef.current && videoRef.current.muted) {
+      videoRef.current.muted = false;
+      setHasInteracted(true);
+    }
   };
 
   return (
@@ -102,17 +124,27 @@ export default function VideoPlayer() {
               <div className="relative pt-[56.25%]">
                 <video
                   ref={videoRef}
-                  className="absolute top-0 left-0 w-full h-full"
+                  className="absolute top-0 left-0 w-full h-full cursor-pointer"
                   controls
-                  autoPlay
                   playsInline
-                  muted
                   preload="auto"
+                  onClick={handleVideoClick}
                   onEnded={handleVideoEnd}
                   src="https://www.sportcompetition.fr/intro.mp4"
                 >
                   Your browser does not support the video tag.
                 </video>
+                
+                {videoRef.current?.muted && !hasInteracted && (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer"
+                    onClick={handleVideoClick}
+                  >
+                    <p className="text-white text-lg">
+                      {t('video.tapToUnmute')}
+                    </p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
