@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import VideoPlayer from './VideoPlayer';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-5xl font-bold mb-6">{t('hero.title')}</h1>
         <p className="text-xl mb-8">{t('hero.subtitle')}</p>
-        <div className="space-x-4">
+        <div className="flex items-center justify-center space-x-4">
           <a 
             href="https://www.betforfun.devforever.ovh" 
             target="_blank" 
@@ -23,6 +24,7 @@ export default function Hero() {
           >
             {t('cta.visit')}
           </a>
+          <VideoPlayer />
         </div>
       </div>
     </motion.div>

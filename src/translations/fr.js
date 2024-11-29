@@ -29,6 +29,8 @@ export default {
     'features.mode3.features.2.context': 'Des grandes ligues européennes aux compétitions émergentes, accédez à une couverture complète avec des statistiques et analyses détaillées.',
     'cta.visit': 'Visiter BetForFun',
     'cta.start': 'Commencer à Pronostiquer',
+    'video.watch': 'Voir la Démo',
+    'video.close': 'Fermer',
     'language': 'English',
     'footer.privacy': 'Politique de Confidentialité',
     'footer.terms': 'Conditions d\'Utilisation',
