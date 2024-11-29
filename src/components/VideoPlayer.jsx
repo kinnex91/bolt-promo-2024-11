@@ -22,13 +22,27 @@ export default function VideoPlayer() {
   useEffect(() => {
     // When isPlaying changes and video is mounted, try to play
     if (isPlaying && videoRef.current) {
-      const playPromise = videoRef.current.play();
+      // Load the video first
+      videoRef.current.load();
       
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Autoplay was prevented:", error);
-        });
-      }
+      // Try to play after a short delay to ensure the video is loaded
+      setTimeout(() => {
+        const playPromise = videoRef.current.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Video started playing successfully
+              console.log("Video autoplay started successfully");
+            })
+            .catch(error => {
+              console.log("Autoplay was prevented:", error);
+              // If autoplay fails, we can show a play button or handle it differently
+              videoRef.current.muted = true; // Try muting the video
+              videoRef.current.play().catch(e => console.log("Even muted autoplay failed:", e));
+            });
+        }
+      }, 100);
     }
   }, [isPlaying]);
 
@@ -39,8 +53,14 @@ export default function VideoPlayer() {
   const handleClose = () => {
     if (videoRef.current) {
       videoRef.current.pause();
+      videoRef.current.currentTime = 0; // Reset video position
     }
     setIsPlaying(false);
+  };
+
+  // Handle video end
+  const handleVideoEnd = () => {
+    handleClose();
   };
 
   return (
@@ -86,7 +106,9 @@ export default function VideoPlayer() {
                   controls
                   autoPlay
                   playsInline
-                  muted // Added muted attribute to help with autoplay
+                  muted
+                  preload="auto"
+                  onEnded={handleVideoEnd}
                   src="https://www.sportcompetition.fr/intro.mp4"
                 >
                   Your browser does not support the video tag.
