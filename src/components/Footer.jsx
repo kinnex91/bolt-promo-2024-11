@@ -21,6 +21,14 @@ export default function Footer() {
         >
           {t('footer.terms')}
         </button>
+        <button
+          onClick={() => (window.location.href = 'https://www.betforfun.devforever.ovh/public_events')}
+          className="text-sm text-gray-600 hover:text-indigo-600"
+        >
+          {t('footer.demofreehere')}
+        </button>
+
+
       </div>
     </div>
   );

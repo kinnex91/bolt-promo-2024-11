@@ -35,6 +35,7 @@ export default {
     'language': 'Français',
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Service',
+    'footer.demofreehere': 'Demo free here',
     // ... rest of the translations
   }
 }
