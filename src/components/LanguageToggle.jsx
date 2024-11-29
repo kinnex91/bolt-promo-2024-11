@@ -1,12 +1,31 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function LanguageToggle() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleLanguage = () => {
+    const currentPath = location.pathname;
     const newLang = i18n.language === 'en' ? 'fr' : 'en';
+    
+    // Update the language
     i18n.changeLanguage(newLang);
+    
+    // Update the URL
+    if (newLang === 'fr') {
+      // If switching to French, add /fr prefix
+      if (currentPath === '/') {
+        navigate('/fr');
+      } else {
+        navigate(`/fr${currentPath}`);
+      }
+    } else {
+      // If switching to English, remove /fr prefix
+      navigate(currentPath.replace('/fr', ''));
+    }
   };
 
   return (
