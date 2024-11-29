@@ -24,7 +24,6 @@ export default function FeatureModal({ isOpen, onClose, feature }) {
     }
   };
 
-  // Extract the base key (e.g., 'features.mode1')
   const baseKey = feature.titleKey.split('.').slice(0, 2).join('.');
 
   return (
@@ -42,50 +41,50 @@ export default function FeatureModal({ isOpen, onClose, feature }) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="bg-white rounded-xl p-8 max-w-3xl w-full relative my-8"
+            className="bg-white rounded-xl p-4 md:p-8 max-w-3xl w-full relative my-4 md:my-8 max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              className="absolute top-2 right-2 md:top-4 md:right-4 text-gray-500 hover:text-gray-700"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
 
             <motion.div variants={contentVariants} initial="hidden" animate="visible">
-              <div className="flex items-center mb-6">
-                <feature.icon className="h-16 w-16 text-blue-600 mr-4" />
+              <div className="flex items-center mb-4 md:mb-6">
+                <feature.icon className="h-12 w-12 md:h-16 md:w-16 text-blue-600 mr-4" />
                 <div>
-                  <h2 className="text-3xl font-bold">{t(feature.titleKey)}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold">{t(feature.titleKey)}</h2>
                   <p className="text-gray-600 mt-2">{t(feature.descriptionKey)}</p>
                 </div>
               </div>
 
               <FeatureIllustration featureKey={feature.titleKey} />
               
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                 <motion.div 
-                  className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg"
+                  className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-6 rounded-lg"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center mb-2 md:mb-3">
                     <h3 className="font-semibold">{t(`${baseKey}.features.1.title`)}</h3>
                   </div>
-                  <p className="text-gray-600">{t(`${baseKey}.features.1.description`)}</p>
-                  <p className="text-gray-600 mt-4">{t(`${baseKey}.features.1.context`)}</p>
+                  <p className="text-gray-600 text-sm md:text-base">{t(`${baseKey}.features.1.description`)}</p>
+                  <p className="text-gray-600 mt-3 md:mt-4 text-sm md:text-base">{t(`${baseKey}.features.1.context`)}</p>
                 </motion.div>
 
                 <motion.div 
-                  className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg"
+                  className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-6 rounded-lg"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center mb-2 md:mb-3">
                     <h3 className="font-semibold">{t(`${baseKey}.features.2.title`)}</h3>
                   </div>
-                  <p className="text-gray-600">{t(`${baseKey}.features.2.description`)}</p>
-                  <p className="text-gray-600 mt-4">{t(`${baseKey}.features.2.context`)}</p>
+                  <p className="text-gray-600 text-sm md:text-base">{t(`${baseKey}.features.2.description`)}</p>
+                  <p className="text-gray-600 mt-3 md:mt-4 text-sm md:text-base">{t(`${baseKey}.features.2.context`)}</p>
                 </motion.div>
               </div>
             </motion.div>

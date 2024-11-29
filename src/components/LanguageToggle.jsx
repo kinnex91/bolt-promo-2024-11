@@ -8,23 +8,18 @@ export default function LanguageToggle() {
   const location = useLocation();
 
   const toggleLanguage = () => {
-    const currentPath = location.pathname;
     const newLang = i18n.language === 'en' ? 'fr' : 'en';
-    
-    // Update the language
     i18n.changeLanguage(newLang);
+
+    // Get the current path without the language prefix
+    const pathWithoutLang = location.pathname.replace(/^\/fr/, '');
     
-    // Update the URL
+    // If switching to French, add /fr prefix
     if (newLang === 'fr') {
-      // If switching to French, add /fr prefix
-      if (currentPath === '/') {
-        navigate('/fr');
-      } else {
-        navigate(`/fr${currentPath}`);
-      }
+      navigate(`/fr${pathWithoutLang}`);
     } else {
-      // If switching to English, remove /fr prefix
-      navigate(currentPath.replace('/fr', ''));
+      // If switching to English, use path without prefix
+      navigate(pathWithoutLang || '/');
     }
   };
 

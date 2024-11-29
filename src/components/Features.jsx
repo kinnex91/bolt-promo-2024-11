@@ -33,10 +33,10 @@ export default function Features() {
   };
 
   return (
-    <div className="py-20 bg-gray-50">
+    <div className="py-12 bg-gray-50 max-h-[90vh] overflow-y-auto">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">{t('features.title')}</h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">{t('features.title')}</h2>
+        <div className="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -45,12 +45,12 @@ export default function Features() {
               transition={{ delay: index * 0.2 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white p-6 rounded-lg shadow-lg cursor-pointer"
+              className="bg-white p-4 md:p-6 rounded-lg shadow-lg cursor-pointer h-auto"
               onClick={() => handleFeatureClick(feature)}
             >
-              <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{t(feature.titleKey)}</h3>
-              <p className="text-gray-600">{t(feature.descriptionKey)}</p>
+              <feature.icon className="h-10 w-10 md:h-12 md:w-12 text-blue-600 mb-3" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">{t(feature.titleKey)}</h3>
+              <p className="text-gray-600 text-sm md:text-base">{t(feature.descriptionKey)}</p>
             </motion.div>
           ))}
         </div>

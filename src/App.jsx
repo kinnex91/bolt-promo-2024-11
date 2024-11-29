@@ -14,9 +14,14 @@ function MainLayout() {
   const { i18n } = useTranslation();
   
   React.useEffect(() => {
-    const lang = location.pathname.startsWith('/fr') ? 'fr' : 'en';
-    i18n.changeLanguage(lang);
-  }, [location, i18n]);
+    // Set language based on URL
+    const isFrenchRoute = location.pathname.startsWith('/fr');
+    const currentLang = isFrenchRoute ? 'fr' : 'en';
+    
+    if (i18n.language !== currentLang) {
+      i18n.changeLanguage(currentLang);
+    }
+  }, [location.pathname, i18n]);
 
   return (
     <div className="min-h-screen">
