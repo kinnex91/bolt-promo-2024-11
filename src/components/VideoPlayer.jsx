@@ -50,6 +50,11 @@ export default function VideoPlayer() {
       setHasInteracted(true);
     }
   };
+  const handlePlay = () => {
+    setHasInteracted(true);
+    setIsPlaying(true);
+  };
+
 
   const handleClose = () => {
     if (videoRef.current) {
@@ -65,6 +70,16 @@ export default function VideoPlayer() {
 
   return (
     <>
+          <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={handlePlay}
+        className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors flex items-center space-x-2"
+      >
+        <PlayCircleIcon className="h-6 w-6" />
+        <span>{t('video.watch')}</span>
+      </motion.button>
+
       <AnimatePresence>
         {isPlaying && (
           <motion.div
