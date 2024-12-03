@@ -58,6 +58,7 @@ export default {
     'terms.section5.content': 'We value your privacy and will not share your personal information with third parties without your consent. Please review our Privacy Policy for more details.',
     'terms.close': 'Close',
     'video.watch': 'Play Video',
-    'footer.demofreehere': 'Démo Free here'
+    'footer.demofreehere': 'Démo Free here',
+     'footer.demofreehereligue1': 'Ligue 1 France results in real time here'
   }
 }

@@ -58,6 +58,8 @@ export default {
     'terms.section5.content': 'Nous valorisons votre vie privée et ne partagerons pas vos informations personnelles avec des tiers sans votre consentement. Veuillez consulter notre Politique de Confidentialité pour plus de détails.',
     'terms.close': 'Fermer',
     'video.watch': 'Lire la vidéo',
-    'footer.demofreehere': 'Démo gratuite ici'
+    'footer.demofreehere': 'Démo gratuite ici',
+    'footer.demofreehereligue1': 'Résultats Ligue 1 France quasi temps rééls ici'
+    
   }
 }
