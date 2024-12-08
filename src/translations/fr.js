@@ -27,7 +27,7 @@ export default {
     'features.mode3.features.2.title': 'Couverture Mondiale',
     'features.mode3.features.2.description': 'Couverture complète de plus de 70 ligues à travers le monde',
     'features.mode3.features.2.context': 'Des grandes ligues européennes aux compétitions émergentes, accédez à une couverture complète avec des statistiques et analyses détaillées.',
-    'cta.visit': 'Visiter BetForFun',
+    'cta.visit': 'Visiter le site',
     'cta.start': 'Commencer à Pronostiquer',
     'language': 'English',
     'footer.privacy': 'Politique de Confidentialité',

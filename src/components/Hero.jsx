@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -16,7 +17,7 @@ export default function Hero() {
     <p className="text-xl mb-8">{t('hero.subtitle')}</p>
     <div className="flex items-center justify-center space-x-4">
       <a 
-        href="https://www.betforfun.devforever.ovh" 
+        href="https://www.sportcometition.fr" 
         target="_blank" 
         rel="noopener noreferrer"
         className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"

@@ -27,7 +27,7 @@ export default {
     'features.mode3.features.2.title': 'Global Coverage',
     'features.mode3.features.2.description': 'Comprehensive coverage of over 70 leagues worldwide',
     'features.mode3.features.2.context': 'From major European leagues to emerging competitions, access comprehensive coverage with detailed statistics and analysis.',
-    'cta.visit': 'Visit BetForFun',
+    'cta.visit': 'Visit Web Site',
     'cta.start': 'Start Pronostics Now',
     'language': 'Français',
     'footer.privacy': 'Privacy Policy',

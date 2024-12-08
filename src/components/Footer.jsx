@@ -22,13 +22,13 @@ export default function Footer() {
           {t('footer.terms')}
         </button>
         <button
-          onClick={() => (window.location.href = 'https://www.betforfun.devforever.ovh/public_events')}
+          onClick={() => (window.location.href = 'https://www.sportcompetition.fr/public_events')}
           className="text-sm text-gray-600 hover:text-indigo-600"
         >
           {t('footer.demofreehere')}
         </button>
         <button
-          onClick={() => (window.location.href = 'https://www.betforfun.devforever.ovh/public_scores?sportTitle=Ligue%201%20-%20France')}
+          onClick={() => (window.location.href = 'https://www.sportcompetition.fr/public_scores?sportTitle=Ligue%201%20-%20France')}
           className="text-sm text-gray-600 hover:text-indigo-600"
         >
           {t('footer.demofreehereligue1')}
